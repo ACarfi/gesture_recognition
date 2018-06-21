@@ -1,6 +1,6 @@
 ## Human Gesture Continuous Recognition: A Comparison Study
 
-This repository contains Matlab codes for the comparison between to methods for continous gesture recognition:
+This repository contains Matlab codes for the comparison between to methods for continuous gesture recognition:
 
 * M1, is a method that models gestures using Gaussian Mixture Models and Gaussian Mixture Regression and performs a probabilistic classification of each gesture using the Mahalanobis distance. A gesture instance is then detected if the associated probability overcomes some thresholds.
 
