@@ -13,3 +13,10 @@ The "Data_Feeding" module loads the example sequence stored in the data folder, 
 SLOTH have been presented in the paper "Online Human Gesture Recognition Using Recurrent Neural Networks and Wearable Sensors". Refer to this pubblication for further informations.
 
 Results of the comparative study between the two methods have been submitted to the 17th International Conference of the Italian Association for Artificial Intelligence.
+
+## Authors
+
+* Alessandro Carfì, dept. DIBRIS Università degli Studi di Genova (Italy) [alessandro.carfi@dibris.unige.it](alessandro.carfi@dibris.unige.it)
+* Carola Motolese, dept. DIBRIS Università degli Studi di Genova (Italy) [carola.motolese@gmail.com](carola.motolese@gmail.com)
+* Barbara Bruno, dept. DIBRIS Università degli Studi di Genova (Italy) [barbara.bruno@unige.it](barbara.bruno@unige.it)
+* Fulvio Mastrogiovanni, dept. DIBRIS Università degli Studi di Genova (Italy) [fulvio.mastrogiovanni@unige.it](fulvio.mastrogiovanni@unige.it)
