@@ -24,45 +24,50 @@ function [label, peaks] = SLOTH_gesture_detection(label_prob, peaks, threshold, 
 % SLOTH_gesture_detection receives at each new sample the probabilties
 % vector and decide if they represent a gesture occurrence
 
-    actual_ges = [];
     time = length(label_prob);
-    if isempty(find(isnan(label_prob(:,time-1:time))))
-        derivative = diff(label_prob(:,time-1:time),1,2);
+    derivative = diff(label_prob(:,time-1:time),1,2);
+    possible_peaks = find(derivative > 0.2,1);
     
-        for i=1:length(peaks)
-            if derivative(i) > 0.2
-                temp = peaks{i};
-                if isempty(temp)
-                    time_diff = win(i);
-                else
-                    time_diff = time - temp(end);
-                end
-                
+    %% Update peaks
+    if not(isempty(possible_peaks))
+        for i=1:length(possible_peaks) 
+            temp = peaks(possible_peaks(i));
+            if temp == 0
+                peaks(possible_peaks(i)) = time;
+            else
+                time_diff = time - temp(end);
                 if time_diff >= win(i)
-                   peaks{i} = [temp, time];
+                   peaks(possible_peaks(i)) = time;
                 end
             end
-
-            temp = peaks{i};
-            L = NaN;
-            
-            if not(isempty(temp))
-                if (time-temp(end)+1) >= win(i)
-                    if mean(label_prob(i,temp(end):time)) > threshold(i)
-                        L = time;
-                        peaks{i} = [];
-                    end
-                end
-            end
-            
-            actual_ges = [actual_ges, L];
-       end
+        end
     end
-
-    if isempty(find(~isnan(actual_ges)))
+    
+    %% Select active peaks
+    active_peaks = find(peaks ~= 0);
+    
+    %% Check for each active peak if the gesture probabilities satisfy the
+    %  detection contraint
+    labels = zeros(1,length(peaks));
+    labels(:) = NaN;
+    
+    for i=1:length(active_peaks)
+        peak_id = active_peaks(i);
+        peak_time = peaks(peak_id);
+        
+        if (time-peak_time+1) >= win(peak_id)
+            if mean(label_prob(peak_id,peak_time:time)) > threshold(peak_id)
+                labels(peak_id)  = time;
+                peaks(peak_id) = 0;
+            end
+        end
+    end
+    
+    %Output the label
+    if isempty(find(~isnan(labels),1))
         label = NaN;
     else
-        label = find(~isnan(actual_ges));
+        label = find(~isnan(labels));
     end
 end
 

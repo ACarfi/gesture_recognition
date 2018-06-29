@@ -61,7 +61,7 @@ probabilities = zeros(Dictionary_Size,Window_Sloth);
 Sloth_Labels = zeros(1,length(Input_Sloth));
 Sloth_Labels(:) = NaN;
 
-peaks = cell(1,Dictionary_Size);
+peaks = zeros(1,Dictionary_Size);
 
 for i=Window_Sloth:length(Input_Sloth)
     [Sloth_Labels(i), probabilities, peaks] = SLOTH_gesture_recognition(Input_Sloth(:,i-Window_Sloth+1:i), Window_Sloth, probabilities, peaks, C, Tau);
