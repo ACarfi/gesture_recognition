@@ -1,6 +1,6 @@
 function [gravity, body] = window_filtering(window,window_size)
 % Author: Barbara Bruno (dept. DIBRIS, University of Genova, ITALY)
-%       : Carola Mottolese (dept. DIBRIS, University of Genova, ITALY)
+%       : Carola Motolese (dept. DIBRIS, University of Genova, ITALY)
 %
 % This code is the implementation of the architecture described in the
 % paper "Using fuzzy logic to enhance classification of human motion 
