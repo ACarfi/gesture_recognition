@@ -1,4 +1,4 @@
-function [label, prec_probabilities, ids_real_time, peaks_real_time] = SLOTH_gesture_recognition(input, window_size, prec_probabilities, ids_real_time, peaks_real_time, C, tau)
+function [label, prec_probabilities, peaks_real_time] = SLOTH_gesture_recognition(input, window_size, prec_probabilities, peaks_real_time, C, tau)
 % Author: Alessandro Carfì (dept. DIBRIS, University of Genova, ITALY)
 %
 % This code is the implementation of the algorithms described in the
@@ -37,7 +37,7 @@ function [label, prec_probabilities, ids_real_time, peaks_real_time] = SLOTH_ges
     [prec_probabilities] = SLOTH_gesture_classification(input,prec_probabilities,net,window_size);
 
     %% Gesture Detection
-    [ids_real_time, peaks_real_time, label] = SLOTH_gesture_detection(prec_probabilities, ids_real_time, peaks_real_time, tau, C, true);
+    [label, peaks_real_time] = SLOTH_gesture_detection(prec_probabilities, peaks_real_time, tau, C);
 
     %% Arrange Naming Space
     if label == 3

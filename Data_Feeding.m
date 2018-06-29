@@ -7,7 +7,7 @@
 %
 % Data_feeding loads a sequence of linear acceleration data containing n 
 % gestures from the "./data" folder and feeds the data, according to the
-% moving window techinque, to two methods for the conitnous gesture 
+% moving window techinque, to two methods for the continuous gesture 
 % recognition:
 %
 % - SLOTH: presented in the paper "Online Human Gesture Recognition using 
@@ -61,11 +61,10 @@ probabilities = zeros(Dictionary_Size,Window_Sloth);
 Sloth_Labels = zeros(1,length(Input_Sloth));
 Sloth_Labels(:) = NaN;
 
-ids = cell(1,Dictionary_Size);
 peaks = cell(1,Dictionary_Size);
 
 for i=Window_Sloth:length(Input_Sloth)
-    [Sloth_Labels(i), probabilities, ids, peaks] = SLOTH_gesture_recognition(Input_Sloth(:,i-Window_Sloth+1:i), Window_Sloth, probabilities, ids, peaks, C, Tau);
+    [Sloth_Labels(i), probabilities, peaks] = SLOTH_gesture_recognition(Input_Sloth(:,i-Window_Sloth+1:i), Window_Sloth, probabilities, peaks, C, Tau);
 end
 
 %% Feeding M1

@@ -1,4 +1,4 @@
-function [label, peaks, l] = SLOTH_gesture_detection(label_prob, label, peaks, threshold, win, puntual_classification)
+function [label, peaks] = SLOTH_gesture_detection(label_prob, peaks, threshold, win)
 % Author: Alessandro Carfì (dept. DIBRIS, University of Genova, ITALY)
 %
 % This code is the implementation of the algorithms described in the
@@ -24,6 +24,7 @@ function [label, peaks, l] = SLOTH_gesture_detection(label_prob, label, peaks, t
 % SLOTH_gesture_detection receives at each new sample the probabilties
 % vector and decide if they represent a gesture occurrence
 
+    actual_ges = [];
     time = length(label_prob);
     if isempty(find(isnan(label_prob(:,time-1:time))))
         derivative = diff(label_prob(:,time-1:time),1,2);
@@ -49,26 +50,19 @@ function [label, peaks, l] = SLOTH_gesture_detection(label_prob, label, peaks, t
                 if (time-temp(end)+1) >= win(i)
                     if mean(label_prob(i,temp(end):time)) > threshold(i)
                         L = time;
-                        if puntual_classification
-                            peaks{i} = [];
-                        end
+                        peaks{i} = [];
                     end
                 end
             end
             
-            label{i} = [label{i}, L];
+            actual_ges = [actual_ges, L];
        end
     end
-   
-    temp = [];
-    for i=1:length(label)
-        temp = [temp, label{i}(end)];
-    end
 
-    if isempty(find(~isnan(temp)))
-        l = NaN;
+    if isempty(find(~isnan(actual_ges)))
+        label = NaN;
     else
-        l = find(~isnan(temp));
+        label = find(~isnan(actual_ges));
     end
 end
 
